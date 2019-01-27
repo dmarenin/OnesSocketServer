@@ -5,7 +5,7 @@ import _thread
 
 
 def start_listen_event():
-    consumer = KafkaConsumer('ami_client_event', 'upd_external_event_trigger',group_id='my-group', bootstrap_servers=['192.168.77.555:9092'])
+    consumer = KafkaConsumer('ami_client_event', 'upd_external_event_trigger',group_id='my-group', bootstrap_servers=['192.168.7.55:9092'])
         
     for message in consumer:
         try:
@@ -15,7 +15,7 @@ def start_listen_event():
    
 app = Flask(__name__)
 
-producer = KafkaProducer(bootstrap_servers=['192.168.777.555:9092'])
+producer = KafkaProducer(bootstrap_servers=['192.168.7.55:9092'])
 
 CORS(app, support_credentials=True)
 

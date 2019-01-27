@@ -3,7 +3,7 @@ from datetime import datetime, date
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
 import _thread
-
+import time
 
 class ThreadedTCPServer(ThreadingMixIn, TCPServer):
     pass
@@ -15,7 +15,7 @@ class OnesSocketServerHandler(BaseRequestHandler):
 class OnesSocketServer():
     handler = OnesSocketServerHandler
     users = {}
-    producer = KafkaProducer(bootstrap_servers=['192.168.777.555:9092'])
+    producer = KafkaProducer(bootstrap_servers=['192.168.7.55:9092'])
 
     def __init__(self):
         self.handler.callback = self.callback
@@ -78,29 +78,37 @@ class OnesSocketServer():
     
     def start_listen_event(self):
         consumer = KafkaConsumer('ones_socket_send_user', 'ones_socket_send_user_send_all', 'ones_socket_add_listener', 
-                                 group_id='my-group', bootstrap_servers=['192.168.777.555:9092'])
+                                 group_id='my-group', bootstrap_servers=['192.168.7.55:9092'])
         
         for message in consumer:
+            #print(message.value.decode('utf-8'))
             if message.topic=="ones_socket_send_user":
                 u_ref = message.key.decode('utf-8')
                 
                 user = self.users.get(u_ref)
                 if user is None:
                     continue
-                
-                for x in user:
-                    sock = user[x]
+                if len(user)==0:
+                    continue
+
+                user_save = user.copy()
+
+                for x in user_save:
+                    sock = user_save[x]
                     if sock._closed:
                         continue
                     sock.sendall(message.value)
+                    time.sleep(0.05)
 
             elif message.topic=="ones_socket_send_user_send_all":
                 for x in self.users:
-                    for y in self.users[x]:
-                        sock = self.users[x][y]
+                    user_save = user.copy()
+                    for y in user_save:
+                        sock = user_save[y]
                         if sock._closed:
                             continue
                         sock.sendall(message.value)
+                        time.sleep(0.05)
 
             elif message.topic=="ones_socket_add_listener":
                 pass
@@ -148,7 +156,7 @@ def unauthorize(**data):
 
 
 
-TCP_IP = '192.168.777.222'
+TCP_IP = '192.168.7.220'
 TCP_PORT = 11000
 
 if __name__ == '__main__':
