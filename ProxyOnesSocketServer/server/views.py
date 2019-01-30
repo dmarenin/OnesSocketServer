@@ -29,37 +29,8 @@ def api_user_event():
     
     key = user.encode('utf-8')
     value = jdata.encode('utf-8')
-    
-    try:
-        producer.send(f'ones_socket_send_user', key=key, value=value)
-    except:
-        print(f"""send to kafka failed {value}""")
 
-    return 'send to kafka', 200, HEADERS
-
-@app.route('/api_user_event_send_all',  methods=['GET', 'POST'])
-def api_user_event_broadcast():
-    if request.method == 'POST':
-        body = request.data.decode('utf-8-sig')
-        data = json.loads(body)
-        
-        user = data.get('u_ref', '')
-        jdata = data.get('jdata', '')
-
-    else:
-        user = request.args.get('u_ref', '')
-        jdata = request.args.get('jdata', '')
-
-    if len(user) == 0 or len(jdata) == 0:
-        return 'bad args', 400, HEADERS
-    
-    key = user.encode('utf-8')
-    value = jdata.encode('utf-8')
-    
-    try:
-        producer.send(f'ones_socket_send_user_send_all', key=key, value=value)
-    except:
-        print(f"""send to kafka failed {value}""")
+    producer.send('ones_socket_send_user', key=key, value=value)
 
     return 'send to kafka', 200, HEADERS
 
