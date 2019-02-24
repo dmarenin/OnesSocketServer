@@ -9,6 +9,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "OnesWS", "..\OnesWS\OnesWS.
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ProxyOnesSocketServer", "..\ProxyOnesSocketServer\ProxyOnesSocketServer.pyproj", "{4EA0EF0D-1131-46A8-88AA-B8137D9F08B3}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "OnesHTTP", "..\OnesHTTP\OnesHTTP.pyproj", "{26EF1EEB-2D16-4DA5-8159-7681EF9CE548}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{B3B3C2BB-B38C-409C-B16A-2919BFE7481C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EA0EF0D-1131-46A8-88AA-B8137D9F08B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4EA0EF0D-1131-46A8-88AA-B8137D9F08B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26EF1EEB-2D16-4DA5-8159-7681EF9CE548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26EF1EEB-2D16-4DA5-8159-7681EF9CE548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,19 +2,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>b3b3c2bb-b38c-409c-b16a-2919bfe7481c</ProjectGuid>
+    <ProjectGuid>26ef1eeb-2d16-4da5-8159-7681ef9ce548</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ones_ws.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>OnesWS</Name>
-    <RootNamespace>OnesWS</RootNamespace>
-    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
-    <SccProvider>Mercurial Source Control Package</SccProvider>
-    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
-    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <Name>OnesHTTP</Name>
+    <RootNamespace>OnesHTTP</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,10 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ones_ws_consumer.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ones_ws.py" />
+    <Compile Include="ones_http.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
