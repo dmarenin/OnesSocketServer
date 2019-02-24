@@ -6,11 +6,12 @@ import _thread
 import time
 
 
-DEF_USER = 'administrator'
-DEF_PASSWORD = '123123123'
+DEF_USER = ''
+DEF_PASSWORD = ''
 DEF_WS = "http://192.168.5.60/AA/ws/gate.1cws?wsdl"
+#DEF_WS = "http://192.168.7.220/aa_local/ws/ws1.1cws?wsdl"
 
-upd_event_lists = []
+#upd_event_lists = []
 
 
 def send(username, password, jdata, method, ws, client):
@@ -28,6 +29,9 @@ def send(username, password, jdata, method, ws, client):
         print(e)
         return
     
+    if res is None:
+        res = {}
+
     res = json.loads(res)
     
     client = None
@@ -36,37 +40,37 @@ def send(username, password, jdata, method, ws, client):
     
     return res
 
-def upd_loop(ind_upd_list):
-    while True:
-        do_upd_loop(ind_upd_list)
+#def upd_loop(ind_upd_list):
+#    while True:
+#        do_upd_loop(ind_upd_list)
 
-def do_upd_loop(ind_upd_list):
-    t_loop = 0.250
-    for x in upd_event_lists[ind_upd_list]:
-        try:
-            client = Client(ws, username = username, password = password, cache = NoCache(), timeout = 60)
-        except Exception as e:
-            print(e)
-            continue
+#def do_upd_loop(ind_upd_list):
+#    t_loop = 0.250
+#    for x in upd_event_lists[ind_upd_list]:
+#        try:
+#            client = Client(ws, username = username, password = password, cache = NoCache(), timeout = 60)
+#        except Exception as e:
+#            print(e)
+#            continue
         
-        send(x['username'], x['password'], x['jdata'], x['method'], x['ws'], client)
+#        send(x['username'], x['password'], x['jdata'], x['method'], x['ws'], client)
         
-        upd_event_lists[ind_upd_list].remove(x)
+#        upd_event_lists[ind_upd_list].remove(x)
 
-    time.sleep(t_loop)
+#    time.sleep(t_loop)
 
 
-upd_event_lists.append([])
-upd_event_lists.append([])
-upd_event_lists.append([])
-upd_event_lists.append([])
 #upd_event_lists.append([])
 #upd_event_lists.append([])
 #upd_event_lists.append([])
 #upd_event_lists.append([])
+##upd_event_lists.append([])
+##upd_event_lists.append([])
+##upd_event_lists.append([])
+##upd_event_lists.append([])
 
-for i, val in enumerate(upd_event_lists):
-    _thread.start_new_thread(upd_loop, (i,))
+#for i, val in enumerate(upd_event_lists):
+#    _thread.start_new_thread(upd_loop, (i,))
 
 
 #producer = KafkaProducer(bootstrap_servers=['192.168.5.131:9092'])
@@ -95,15 +99,21 @@ for message in consumer:
         ws = event_setting.get('ws')
         jdata = event_setting.get('jdata')
 
-    lens = []
-    for i, val in enumerate(upd_event_lists):
-        lens.append((len(upd_event_lists[i]), i))
+    try:
+       client = Client(ws, username = username, password = password, cache = NoCache(), timeout = 60)
+    except Exception as e:
+        print(e)
+        continue
 
-        min_list = min(lens)
+    #lens = []
+    #for i, val in enumerate(upd_event_lists):
+    #    lens.append((len(upd_event_lists[i]), i))
 
-        upd_event_lists[min_list[1]].append({'username':username, 'password':password, 'ws':ws, 'jdata':jdata, 'method':method})
+    #    min_list = min(lens)
+
+    #    upd_event_lists[min_list[1]].append({'username':username, 'password':password, 'ws':ws, 'jdata':jdata, 'method':method})
 
     #_thread.start_new_thread(send, (username, password, jdata, method, ws,))
 
-    #res = send(username, password, jdata, method, ws)
+    res = send(username, password, jdata, method, ws, client)
 
