@@ -45,7 +45,9 @@ class OnesSocketServer():
                
                 u_ref = u_ref.upper()
 
-                self.users.setdefault(u_ref, dict())
+                if self.users.get(u_ref) is None:
+                    self.users[u_ref] = {}
+
                 self.users[u_ref][client_address] = request
 
                 authorize(user = u_ref, address = client_address[0], producer = self.producer)
